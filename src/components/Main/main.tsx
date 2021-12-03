@@ -1,45 +1,47 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import style from './main.module.scss';
-import {Button} from '@material-ui/core';
-import LoginIcon from '@material-ui/icons/AccountCircle';
-import LogoutIcon from '@material-ui/icons/ExitToApp';
-import ButtonGroup from "@material-ui/core/ButtonGroup";
 
-// import PropTypes from 'prop-types';
-
-// Main.propTypes = {
-//
-// };
+import Card from '../Card/card';
+import {CardPropsType} from "../Card/card";
 
 
-const Main = () => {
+
+type MainPropsType = {
+
+}
+
+
+
+const Main = (props: MainPropsType) => {
+
+    const [arr, setArr] = useState([]);
+
+    useEffect(() => {
+        fetch("https://api.spaceflightnewsapi.net/v3/articles")
+            .then((resp) => {
+                return resp.json()
+            })
+            .then((data) => {
+                console.log(data);
+                console.log(data[0].imgUrl)
+                setArr(data);
+            })
+            .catch((err) => {
+                console.error(err)
+            })
+    }, [])
+
     return (
         <div className={style.main}>
-            <ButtonGroup
-                variant="contained">
-                <Button
-                    endIcon={<LoginIcon/>}
-                    color="primary">
-                    Login
-                </Button>
-                <Button
-                    startIcon={<LogoutIcon/>}
-                    color="secondary">
-                    Logout
-                </Button>
-            </ButtonGroup>
-            <ButtonGroup variant="contained" orientation="vertical">
-                <Button
-                    endIcon={<LoginIcon/>}
-                    color="primary">
-                    Login
-                </Button>
-                <Button
-                    startIcon={<LogoutIcon/>}
-                    color="secondary">
-                    Logout
-                </Button>
-            </ButtonGroup>
+            {arr.map((item: CardPropsType) => <Card
+                newsSite={item.newsSite}
+                title={item.title}
+                summary={item.summary}
+                url={item.url}
+                imageUrl={item.imageUrl}
+                key={item.id}
+                id={item.id}
+            />)}
         </div>
     );
 };
