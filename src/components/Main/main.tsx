@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import style from './main.module.scss';
-
-import Card from '../Card/card';
-import {CardPropsType} from "../Card/card";
+import CardWrapper from '../Card/card-wrapper';
+import {CardWrapperPropsType} from "../Card/card-wrapper";
 
 
 
@@ -23,7 +21,6 @@ const Main = (props: MainPropsType) => {
             })
             .then((data) => {
                 console.log(data);
-                console.log(data[0].imgUrl)
                 setArr(data);
             })
             .catch((err) => {
@@ -32,8 +29,8 @@ const Main = (props: MainPropsType) => {
     }, [])
 
     return (
-        <div className={style.main}>
-            {arr.map((item: CardPropsType) => <Card
+        <div>
+            {arr.map((item: CardWrapperPropsType) => <CardWrapper
                 newsSite={item.newsSite}
                 title={item.title}
                 summary={item.summary}

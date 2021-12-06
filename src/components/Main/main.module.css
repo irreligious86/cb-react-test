@@ -1,5 +1,10 @@
 .main {
-  background-color: yellow;
+  background-color: rgba(79, 213, 194, 0.3);
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  grid-template-rows: repeat(auto-fill, minmax(360px, 1fr));
+  grid-gap: 10px;
+  padding: 10px;
 }
 .main-button {
   border-color: red;
